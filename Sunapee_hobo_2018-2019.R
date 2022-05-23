@@ -12,6 +12,7 @@
 
 #load libraries
 library(tidyverse)
+library(lubridate)
 
 # point to directories
 data_dir = 'C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2018-19 Winter Pendant/'
@@ -434,6 +435,10 @@ hobo_w18_L1 %>%
   scale_x_datetime(date_minor_breaks = '1 month') +
   final_theme
   
+#change time from GMT-4 to GMT-5 
+hobo_w18_L1 <- hobo_w18_L1 %>% 
+  mutate(datetime = datetime - hours(1))
+
 
   
 #export L1 tempstring file
