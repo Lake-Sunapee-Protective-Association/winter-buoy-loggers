@@ -1,14 +1,9 @@
-#*****************************************************************
-#*      Cary Institute of Ecosystem Studies (Millbrook, NY)      *
-#*                                                               *
-#* TITLE:   Sunapee_hobo_2019-2019.r                             *
-#* AUTHOR:  Bethel Steele                                        *
-#* SYSTEM:  Lenovo ThinkCentre, Win 10, R 3.4.2, RStudio 1.1.383 *
-#* PROJECT: Lake Sunapee Buoy Data Cleaning                      *
-#* PURPOSE: create L0 and L1 data for buoy data 2016 using       *
-#*          similar methods to CCC and DR                        *
-#* PREVIOUS VERSION:                                             *
-#*****************************************************************
+#*      Cary Institute of Ecosystem Studies (Millbrook, NY)           *
+#*                                                                    *
+#* TITLE:   Sunapee_hobo_2018-2019.r                                  *
+#* AUTHOR:  Bethel Steele steeleb@caryinstitute.org                   *
+#* SYSTEM:  Lenovo ThinkCentre, Win 10, R 4.1.3, RStudio 2022.02.20   *
+#* PURPOSE: Collate and qaqc winter logger data at Sunapee            *
 
 #load libraries
 library(tidyverse)

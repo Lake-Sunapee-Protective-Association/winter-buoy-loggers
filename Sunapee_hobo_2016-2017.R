@@ -1,19 +1,14 @@
-#*****************************************************************
-#*      Cary Institute of Ecosystem Studies (Millbrook, NY)      *
-#*                                                               *
-#* TITLE:   Sunapee_hobo_2016-2017.r                             *
-#* AUTHOR:  Bethel Steele                                        *
-#* SYSTEM:  Lenovo ThinkCentre, Win 10, R 3.4.2, RStudio 1.1.383 *
-#* PROJECT: Lake Sunapee Buoy Data Cleaning                      *
-#* PURPOSE: create L0 and L1 data for buoy data 2016 using       *
-#*          similar methods to CCC and DR                        *
-#* PREVIOUS VERSION: 'Sunapee_buoy_2016_17Oct2017.R'             *
-#*                   'Sunapee_buoy_2016_11Oct2017.R'             *
-#*                   'Sunapee_buoy_2014-2017_07Aug2017.R'        *
-#*****************************************************************
+#*      Cary Institute of Ecosystem Studies (Millbrook, NY)           *
+#*                                                                    *
+#* TITLE:   Sunapee_hobo_2016-2017.r                                  *
+#* AUTHOR:  Bethel Steele steeleb@caryinstitute.org                   *
+#* SYSTEM:  Lenovo ThinkCentre, Win 10, R 4.1.3, RStudio 2022.02.20   *
+#* PURPOSE: Collate and qaqc winter logger data at Sunapee            *
+
 
 #load libraries
 library(tidyverse)
+library(lubridate)
 
 # point to directories
 data_dir = 'C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/'
@@ -110,6 +105,10 @@ ggplot(hobo_vert, aes(x=datetime, y=value, col=variable)) +
 #                               "#00e639", "#d4c711", "#0081cc", "#66c7ff")) +
 #   scale_x_datetime(date_minor_breaks = '1 day') +
 #   final_theme
+
+#since these were deployed pre-DST change, we assume they are stored in GMT-4, here we change to GMT-5
+hobo_w16 <- hobo_w16 %>% 
+  mutate(datetime = datetime-hours(1))
 
 
 #export L1 tempstring file
