@@ -10,57 +10,60 @@
 #* PREVIOUS VERSION:                                             *
 #*****************************************************************
 
+#load libraries
+library(tidyverse)
+
+# point to directories
+data_dir = 'C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2018-19 Winter Pendant/'
+dump_dir = 'C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L1/winter/'
+
+# save functions/groms
+final_theme=theme_bw() +
+  theme(axis.text=element_text(size=12),
+        axis.title=element_text(size=14,face="bold"),
+        plot.title=element_text(size=16, face='bold', hjust=0.5)) #save as a grom
+
 #bring in winter 17-18 hobo raw data
-hobo_w18_2m <- read_csv('C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2018-19 Winter Pendant//U22-2m.csv',
-                      col_types = 'icn', 
-                      col_names = c('obs', 'datetime', 'TempC_2m'),
-                      skip =2) %>% 
-  select(-obs)
-hobo_w18_3m <- read_csv('C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2018-19 Winter Pendant/U22-3m.csv',
-                        col_types = 'icn', 
-                        col_names = c('obs', 'datetime', 'TempC_3m'),
-                        skip =2)%>% 
-  select(-obs) 
-hobo_w18_4m <- read_csv('C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2018-19 Winter Pendant/U22-4m.csv',
-                        col_types = 'icn', 
-                        col_names = c('obs', 'datetime', 'TempC_4m'),
+hobo_w18_2m <- read.csv(file.path(data_dir, 'U22-2m.csv'),
+                        col.names = c('obs', 'datetime', 'TempC_2m', 'detach', 'attach', 'connect', 'stop', 'eof'),
                         skip =2) %>% 
-  select(-obs)
-hobo_w18_5m <- read_csv('C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2018-19 Winter Pendant/U22-5m.csv',
-                        col_types = 'icn', 
-                        col_names = c('obs', 'datetime', 'TempC_5m'),
+  select(-obs, -c(detach:eof))
+hobo_w18_3m <- read.csv(file.path(data_dir, 'U22-3m.csv'),
+                        col.names = c('obs', 'datetime', 'TempC_3m', 'detach', 'attach', 'connect', 'stop', 'eof'),
                         skip =2) %>% 
-  select(-obs)
-hobo_w18_6m <- read_csv('C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2018-19 Winter Pendant/U22-6m.csv',
-                        col_types = 'icn', 
-                        col_names = c('obs', 'datetime', 'TempC_6m'),
+  select(-obs, -c(detach:eof))
+hobo_w18_4m <- read.csv(file.path(data_dir, 'U22-4m.csv'),
+                        col.names = c('obs', 'datetime', 'TempC_4m', 'detach', 'attach', 'connect', 'stop', 'eof'),
                         skip =2) %>% 
-  select(-obs)
-hobo_w18_7m <- read_csv('C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2018-19 Winter Pendant/U22-7m.csv',
-                        col_types = 'icn', 
-                        col_names = c('obs', 'datetime', 'TempC_7m'),
+  select(-obs, -c(detach:eof))
+hobo_w18_5m <- read.csv(file.path(data_dir, 'U22-5m.csv'),
+                        col.names = c('obs', 'datetime', 'TempC_5m', 'detach', 'attach', 'connect', 'stop', 'eof'),
                         skip =2) %>% 
-  select(-obs)
-hobo_w18_8m <- read_csv('C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2018-19 Winter Pendant/U22-8m.csv',
-                        col_types = 'icn', 
-                        col_names = c('obs', 'datetime', 'TempC_8m'),
+  select(-obs, -c(detach:eof))
+hobo_w18_6m <- read.csv(file.path(data_dir, 'U22-6m.csv'),
+                        col.names = c('obs', 'datetime', 'TempC_6m', 'detach', 'attach', 'connect', 'stop', 'eof'),
                         skip =2) %>% 
-  select(-obs)
-hobo_w18_9m <- read_csv('C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2018-19 Winter Pendant/U22-9m.csv',
-                        col_types = 'icn', 
-                        col_names = c('obs', 'datetime', 'TempC_9m'),
+  select(-obs, -c(detach:eof))
+hobo_w18_7m <- read.csv(file.path(data_dir, 'U22-7m.csv'),
+                        col.names = c('obs', 'datetime', 'TempC_7m', 'detach', 'attach', 'connect', 'stop', 'eof'),
                         skip =2) %>% 
-  select(-obs)
-hobo_w18_10m <- read_csv('C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2018-19 Winter Pendant/U22-10m.csv',
-                        col_types = 'icn', 
-                        col_names = c('obs', 'datetime', 'TempC_10m'),
+  select(-obs, -c(detach:eof))
+hobo_w18_8m <- read.csv(file.path(data_dir, 'U22-8m.csv'),
+                        col.names = c('obs', 'datetime', 'TempC_8m', 'detach', 'attach', 'connect', 'stop', 'eof'),
                         skip =2) %>% 
-  select(-obs)
-hobo_w18_do <- read_csv('C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2018-19 Winter Pendant/2018-2018_U26DO.csv',
-                        col_types = 'icnn',
-                        col_names = c('obs', 'datetime', 'do_ppm', 'TempC_1m'),
+  select(-obs, -c(detach:eof))
+hobo_w18_9m <- read.csv(file.path(data_dir, 'U22-9m.csv'),
+                        col.names = c('obs', 'datetime', 'TempC_9m', 'detach', 'attach', 'connect', 'stop', 'eof'),
+                        skip =2) %>% 
+  select(-obs, -c(detach:eof))
+hobo_w18_10m <- read.csv(file.path(data_dir, 'U22-10m.csv'),
+                         col.names = c('obs', 'datetime', 'TempC_10m', 'detach', 'attach', 'connect', 'stop', 'eof'),
+                         skip =2) %>% 
+  select(-obs, -c(detach:eof))
+hobo_w18_do <- read.csv(file.path(data_dir, '2018-2019_U26DO.csv'),
+                        col.names = c('obs', 'datetime', 'do_ppm', 'TempC_1m', 'exp_sensor', 'eof'),
                         skip=2) %>% 
-  select(-obs)
+  select(-obs, -c(exp_sensor:eof)) #exp sensor doesn't have info in it.
 
 hobo_w18 <- full_join(hobo_w18_do, hobo_w18_2m) %>% 
   full_join(., hobo_w18_3m) %>% 
@@ -72,7 +75,7 @@ hobo_w18 <- full_join(hobo_w18_do, hobo_w18_2m) %>%
   full_join(., hobo_w18_9m) %>% 
   full_join(., hobo_w18_10m)
 
-rm(hobo_w18_do, hobo_w18_2m, hobo_w18_3m, hobo_w18_4m, hobo_w18_5m, hobo_w18_6m, hobo_w18_8m, hobo_w18_9m, hobo_w18_10m)
+rm(hobo_w18_do, hobo_w18_2m, hobo_w18_3m, hobo_w18_4m, hobo_w18_5m, hobo_w18_6m, hobo_w18_7m, hobo_w18_8m, hobo_w18_9m, hobo_w18_10m)
 
 #format date of hobo sensors
 hobo_w18 <- hobo_w18 %>% 
@@ -87,7 +90,7 @@ range(hobo_temp_vert$value, na.rm = T)
 
 hobo_w18_L1 <- hobo_w18 %>% 
   mutate_at(vars("TempC_1m", "TempC_2m", "TempC_3m", "TempC_4m", "TempC_5m", "TempC_6m", "TempC_7m", "TempC_8m", "TempC_9m", "TempC_10m"),
-            funs(case_when(. < -50 ~ NA_real_,
+            ~(case_when(. < -5 ~ NA_real_,
                  TRUE ~ .)))
 hobo_temp_vert_L1 <- hobo_w18_L1 %>%
   select(-do_ppm) %>% 
@@ -174,7 +177,7 @@ ggplot(subset(hobo_temp_vert_L1, subset=(datetime>='2019-05-01' & datetime < '20
   scale_x_datetime(date_minor_breaks = '1 day') +
   final_theme
 
-#may 23 do removal
+#may 23 removal
 ggplot(subset(hobo_temp_vert_L1, subset=(datetime>='2019-05-23' & datetime < '2019-05-24')), aes(x=datetime, y=value, col=variable)) +
   geom_point() +
   labs(title='hobo temp May 2019', x='date', y='temp (deg C)') +
@@ -183,10 +186,9 @@ ggplot(subset(hobo_temp_vert_L1, subset=(datetime>='2019-05-23' & datetime < '20
   scale_x_datetime(date_minor_breaks = '1 hour') +
   final_theme
 
-#settles by 16:00
 hobo_w18_L1 <- hobo_w18_L1 %>% 
   mutate_at(vars("TempC_1m", "TempC_2m", "TempC_3m", "TempC_4m", "TempC_5m", "TempC_6m", "TempC_7m", "TempC_8m", "TempC_9m", "TempC_10m"),
-            funs(case_when(datetime > as.POSIXct('2019-05-23 9:50', tz='UTC') ~ NA_real_,
+            ~(case_when(datetime > as.POSIXct('2019-05-23 9:50', tz='UTC') ~ NA_real_,
                            TRUE ~ .)))
 hobo_temp_vert_L1 <- hobo_w18_L1 %>%
   select(-do_ppm) %>% 
@@ -225,6 +227,7 @@ ggplot(hobo_do_w18_vert, aes(x=datetime, y=value)) +
 
 hobo_w18_L1 <- hobo_w18_L1 %>% 
   mutate(do_ppm = case_when(do_ppm < -50 ~ NA_real_,
+                            is.na(TempC_1m) ~ NA_real_,
                             TRUE ~ do_ppm))
   
 hobo_do_w18 <- hobo_w18_L1 %>% 
@@ -435,22 +438,20 @@ hobo_w18_L1 %>%
   
 #export L1 tempstring file
 hobo_w18_L1 %>% 
-  select(datetime, TempC_1m, TempC_2m, TempC_3m, TempC_4m, TempC_5m, TempC_6m, TempC_7m, TempC_8m, TempC_9m, TempC_10m, do_ppm) %>% 
-  rename(TempC_1p5m = 'TempC_1m',
-         TempC_2p5m = 'TempC_2m',
-         TempC_3p5m = 'TempC_3m',
-         TempC_4p5m = 'TempC_4m',
-         TempC_5p5m = 'TempC_5m',
-         TempC_6p5m = 'TempC_6m',
-         TempC_7p5m = 'TempC_7m',
-         TempC_8p5m = 'TempC_8m',
-         TempC_9p5m = 'TempC_9m',
-         TempC_10p5m = 'TempC_10m') %>%
+  select(datetime, TempC_1m, TempC_2m, TempC_3m, TempC_4m, TempC_5m, TempC_6m, TempC_7m, TempC_8m, TempC_9m, TempC_10m, do_ppm, do_flag) %>% 
+  rename(waterTemperature_DO_degC_1m = 'TempC_1m',
+         waterTemperature_degC_2m = 'TempC_2m',
+         waterTemperature_degC_3m = 'TempC_3m',
+         waterTemperature_degC_4m = 'TempC_4m',
+         waterTemperature_degC_5m = 'TempC_5m',
+         waterTemperature_degC_6m = 'TempC_6m',
+         waterTemperature_degC_7m = 'TempC_7m',
+         waterTemperature_degC_8m = 'TempC_8m',
+         waterTemperature_degC_9m = 'TempC_9m',
+         waterTemperature_degC_10m = 'TempC_10m',
+         oxygenDissolved_mgl_1m = do_ppm) %>%
   mutate(datetime = as.character(datetime)) %>% 
-  write_csv(., 'C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L1/2018-2019_hobotempstringdo_L1.csv')
-
-#clean up workspace
-rm(hobo_vert)
+  write_csv(., file.path(dump_dir, paste0('2018-2019_hobotempstringdo_L1_v', format(Sys.Date(), '%Y'), '.csv')))
 
 
 

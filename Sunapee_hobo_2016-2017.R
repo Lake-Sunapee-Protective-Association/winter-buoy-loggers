@@ -12,14 +12,25 @@
 #*                   'Sunapee_buoy_2014-2017_07Aug2017.R'        *
 #*****************************************************************
 
-#bring in summer 2016 hobo raw data
-hobo_w16 <- read_csv('C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/2016-17 Winter Pendant.csv',
-                      col_types = 'icnnnnnnnnnnnnnnnnnn')
+#load libraries
+library(tidyverse)
+
+# point to directories
+data_dir = 'C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L0/winter hobo data/'
+dump_dir = 'C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L1/winter/'
+
+# save functions/groms
+final_theme=theme_bw() +
+  theme(axis.text=element_text(size=12),
+        axis.title=element_text(size=14,face="bold"),
+        plot.title=element_text(size=16, face='bold', hjust=0.5)) #save as a grom
+
+#bring in summer 2015 hobo raw data
+hobo_w16 <- read.csv(file.path(data_dir, '2016-17 Winter Pendant.csv'))
 
 #format date of hobo sensors
 hobo_w16 <- hobo_w16 %>% 
-  rename(Date.Time = 'Date/Time') %>% 
-  mutate(datetime = as.POSIXct(Date.Time, format='%m/%d/%Y %H:%M', tz='UTC')) %>% 
+  mutate(datetime = as.POSIXct(Date.Time, format='%m/%d/%Y %H:%M', tz='UTC')) %>%  #no dst observed, using UTC for simplicity
   select(-Date.Time) %>% 
   filter(!is.na(datetime))
 
@@ -103,21 +114,19 @@ ggplot(hobo_vert, aes(x=datetime, y=value, col=variable)) +
 
 #export L1 tempstring file
 hobo_w16 %>% 
-  select(datetime, TempC_1m, TempC_2m, TempC_3m, TempC_4m, TempC_5m, TempC_6m, TempC_7m, TempC_8m, TempC_9m) %>% 
-  rename(TempC_1p5m = 'TempC_1m',
-         TempC_2p5m = 'TempC_2m',
-         TempC_3p5m = 'TempC_3m',
-         TempC_4p5m = 'TempC_4m',
-         TempC_5p5m = 'TempC_5m',
-         TempC_6p5m = 'TempC_6m',
-         TempC_7p5m = 'TempC_7m',
-         TempC_8p5m = 'TempC_8m',
-         TempC_9p5m = 'TempC_9m') %>%
-  mutate(datetime = as.character(datetime)) %>% 
-  write_csv(., 'C:/Users/steeleb/Dropbox/Lake Sunapee/monitoring/buoy data/data/all sensors/L1/2016-2017_hobotempstring_L1.csv')
+  select(datetime, TempC_1m, TempC_2m, TempC_3m, TempC_4m, TempC_5m, TempC_6m, TempC_7m, TempC_8m, TempC_9m) %>%
+  rename(waterTemperature_degC_1m = 'TempC_1m',
+         waterTemperature_degC_2m = 'TempC_2m',
+         waterTemperature_degC_3m = 'TempC_3m',
+         waterTemperature_degC_4m = 'TempC_4m',
+         waterTemperature_degC_5m = 'TempC_5m',
+         waterTemperature_degC_6m = 'TempC_6m',
+         waterTemperature_degC_7m = 'TempC_7m',
+         waterTemperature_degC_8m = 'TempC_8m',
+         waterTemperature_degC_9m = 'TempC_9m') %>%
+  mutate(datetime = as.character(datetime)) %>%
+  write_csv(., file.path(dump_dir, paste0('2016-2017_hobotempstring_L1_v', format(Sys.Date(), '%Y'), '.csv')))
 
-#clean up workspace
-rm(hobo_vert)
 
 
 
