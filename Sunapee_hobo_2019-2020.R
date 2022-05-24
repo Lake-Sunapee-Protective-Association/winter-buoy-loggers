@@ -312,7 +312,7 @@ hobo_w19_L1 %>%
          waterTemperature_degC_10m = 'TempC_10m',
          oxygenDissolved_mgl_1m = do_ppm) %>%
   mutate(datetime = as.character(datetime)) %>% 
-  write_csv(., file.path(dump_dir, paste0('2019-2020_hobotempstringdo_L1_v', format(Sys.Date(), '%Y'), '.csv')))
+  write_csv(., file.path(dump_dir, paste0('2019-2020_wintertempstringdo_L1_v', format(Sys.Date(), '%Y'), '.csv')))
 
 
 

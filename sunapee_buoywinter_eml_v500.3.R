@@ -1,13 +1,11 @@
-#*****************************************************************
-#*      Cary Institute of Ecosystem Studies (Millbrook, NY)      *
-#*                                                               *
-#* TITLE:   Sunapee_buoywinter_EML_v22April2020.R                *
-#* AUTHOR:  Bethel Steele                                        *
-#* SYSTEM:  Lenovo ThinkCentre, Win 10, R 3.6.3, RStudio 1.2.5042*
-#* DATE:    27April2020                                          *
-#* PROJECT: sunapee buoy                                         *
-#* PURPOSE: create EML for dataset                               *
-#*****************************************************************
+#*      Cary Institute of Ecosystem Studies (Millbrook, NY)             *
+#*                                                                      *
+#* TITLE:   Sunapee_buoywinter_EML_v500.3.R                             *
+#* AUTHOR:  Bethel Steele                                               *
+#* SYSTEM:  Lenovo ThinkCentre, Win 10, R 4.1.3, RStudio 2022.2.02      *
+#* DATE:    24May2022                                                   *
+#* PROJECT: sunapee winter buoy                                         *
+#* PURPOSE: create EML for dataset                                      *
 
 library(devtools)
 library(EML)
@@ -15,25 +13,31 @@ install_github('EDIorg/EMLassemblyline')
 library(EMLassemblyline)
 
 library(tidyverse)
-library(readxl)
-knitr::opts_chunk$set(echo = TRUE)
 library(kableExtra)
 
-#import templates
-setwd('/Users/steeleb/Dropbox/EDI_submissions/sunape_buoy_winter_2014-2019_v22April2020/')
+#point to directory
+dir = 'C:/Users/steeleb/Dropbox/EDI_submissions/sunape_buoy_winter_2014-2021_v24May2022/'
 
 #basic metadata
 template_core_metadata(
-  path = '.',
+  path = dir,
   license = "CCBY"
 )
 
 
 #### TABLE ATTRIBUTES ####
 template_table_attributes(
-  path = '.',
+  path = dir,
   data.path = 'data/',
-  data.table = c('2014_2019_winterhobodotemp_L1.csv', 'buoylocation_datapub.csv')
+  data.table = c('2014_2015_wintertempstring_L1_v2022.csv', 
+                 '2015-2016_wintertempstring_L1_v2022.csv', 
+                 '2016_2017_wintertempstring_L1_v2022.csv', 
+                 '2017_2018_wintertempstringdo_L1_v2022.csv', 
+                 '2018_2019_wintertempstringdo_L1_v2022.csv', 
+                 '2019_2020_wintertempstringdo_L1_v2022.csv', 
+                 '2020_2021_wintertempstring_L1_v2022.csv', 
+                 '2021_2022_wintertempstring_L1_v2022.csv', 
+                 'buoylocation_datapub.csv')
 )
 
 #edit table attributes
@@ -134,7 +138,7 @@ custom_units <- read.table(
 
 #### create categorical variables metadata ####
 template_categorical_variables(
-  path = '.',
+  path = dir,
   data.path = './data',
 )
 
@@ -188,7 +192,7 @@ write.table(
 
 #### GEOGRAPHIC COVERAGE ####
 template_geographic_coverage(
-  path = '.',
+  path = dir,
   data.path = './data',
   data.table = 'buoylocation_datapub.csv',
   site.col = 'location',
@@ -473,9 +477,9 @@ knitr::kable(
 
 #### CREATE EML ####
 make_eml(
-  path = '.',
+  path = dir,
   data.path = './data',
-  eml.path = '.',
+  eml.path = dir,
   dataset.title = 'High-frequency under-ice water temperature and dissolved oxygen at Lake Sunapee, New Hampshire, USA, 2014-2019',
   geographic.coordinates = c(43.4307, -72.0304, 43.3217, -72.0831),
   geographic.description = 'Lake Sunapee is located in the Sugar River watershed within Sullivan and Merrimack Counties, NH, USA. It is a drainage lake with predominantly muck substrate. It has a surface area of 1667 hectares, 53 kilometers of developed shoreline and a maximum depth of 33.7 meters. The location of the winter under-ice temperature and do string is 43.3913, -72.0576. Verbal description of winter under-ice location: SSE of Loon Island, water depth 10.5-12 meters, water fluctuations seasonally 0.75 to 1 meter. The following bounding coordinates are for Lake Sunapee as defined by the polygon contained in the New Hampshire Hydrography Dataset (NHHD) as downloaded from GRANIT (http://www.granit.sr.unh.edu/data/search?dset=nhhd&#).',

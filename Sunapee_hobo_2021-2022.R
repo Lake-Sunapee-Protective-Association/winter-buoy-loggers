@@ -200,7 +200,7 @@ hobo_w21_L1 %>%
          waterTemperature_degC_9m = 'TempC_9m',
          waterTemperature_degC_10m = 'TempC_10m') %>%
   mutate(datetime = as.character(datetime)) %>% 
-  write_csv(., file.path(dump_dir, paste0('2021-2022_hobotempstring_L1_v', format(Sys.Date(), '%Y'), '.csv')))
+  write_csv(., file.path(dump_dir, paste0('2021-2022_wintertempstring_L1_v', format(Sys.Date(), '%Y'), '.csv')))
 
 
 

@@ -239,7 +239,6 @@ ggplot(hobo_do_w18_vert, aes(x=datetime, y=value)) +
   scale_x_datetime(date_minor_breaks = '1 month') +
   final_theme
 
-  
 ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2018-11-01', tz='UTC') &
                                             datetime < as.POSIXct('2018-12-01', tz='UTC'))),
               aes(x=datetime, y=value)) +
@@ -258,71 +257,10 @@ ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2018-12-01', t
   scale_x_datetime(date_minor_breaks = '1 day') +
   final_theme
 
-#dec 21
-ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2018-12-21', tz='UTC') &
-                                            datetime < as.POSIXct('2018-12-22', tz='UTC'))),
-       aes(x=datetime, y=value)) +
-  facet_grid(variable ~. , scales = 'free_y') +
-  geom_point() +
-  labs(title='hobo do/temp 2019', x='date', y='temp (deg C)') +
-  scale_x_datetime(date_minor_breaks = '1 hour') +
-  final_theme
-
-#4-11
-hobo_w18_L1 <- hobo_w18_L1 %>% 
-  mutate(do_flag = case_when(datetime >= as.POSIXct('2018-12-21 4:00', tz='UTC') &
-                               datetime < as.POSIXct('2018-12-21 11:00', tz='UTC')~ 'e',
-                             TRUE ~ NA_character_))
-
-hobo_do_w18 <- hobo_w18_L1 %>% 
-  select(datetime, TempC_1m, do_ppm, do_flag)
-
-hobo_do_w18_vert <- hobo_do_w18 %>% 
-  gather(variable, value, - datetime, -do_flag)
-
-ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2018-12-01', tz='UTC') &
-                                            datetime < as.POSIXct('2019-01-01', tz='UTC'))),
-       aes(x=datetime, y=value, color = do_flag)) +
-  facet_grid(variable ~. , scales = 'free_y') +
-  geom_point() +
-  labs(title='hobo do/temp 2019', x='date', y='temp (deg C)') +
-  scale_x_datetime(date_minor_breaks = '1 day') +
-  final_theme
-
 
 ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-01-01', tz='UTC') &
                                             datetime < as.POSIXct('2019-02-01', tz='UTC'))),
        aes(x=datetime, y=value)) +
-  facet_grid(variable ~. , scales = 'free_y') +
-  geom_point() +
-  labs(title='hobo do/temp 2019', x='date', y='temp (deg C)') +
-  scale_x_datetime(date_minor_breaks = '1 day') +
-  final_theme
-
-#jan 24
-ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-01-24', tz='UTC') &
-                                            datetime < as.POSIXct('2019-01-25', tz='UTC'))),
-       aes(x=datetime, y=value)) +
-  facet_grid(variable ~. , scales = 'free_y') +
-  geom_point() +
-  labs(title='hobo do/temp 2019', x='date', y='temp (deg C)') +
-  scale_x_datetime(date_minor_breaks = '1 hour') +
-  final_theme
-
-hobo_w18_L1 <- hobo_w18_L1 %>% 
-  mutate(do_flag = case_when(datetime >= as.POSIXct('2019-01-24 16:00', tz='UTC') &
-                               datetime < as.POSIXct('2019-01-24 19:45', tz='UTC')~ 'e',
-                             TRUE ~ NA_character_))
-
-hobo_do_w18 <- hobo_w18_L1 %>% 
-  select(datetime, TempC_1m, do_ppm, do_flag)
-
-hobo_do_w18_vert <- hobo_do_w18 %>% 
-  gather(variable, value, - datetime, -do_flag)
-
-ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-01-01', tz='UTC') &
-                                            datetime < as.POSIXct('2019-02-01', tz='UTC'))),
-       aes(x=datetime, y=value, color = do_flag)) +
   facet_grid(variable ~. , scales = 'free_y') +
   geom_point() +
   labs(title='hobo do/temp 2019', x='date', y='temp (deg C)') +
@@ -348,9 +286,9 @@ ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-03-01', t
   scale_x_datetime(date_minor_breaks = '1 day') +
   final_theme
 
-#mar 15
-ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-03-15', tz='UTC') &
-                                            datetime < as.POSIXct('2019-03-16', tz='UTC'))),
+# erratic temp and do behavior is suspect ~ 16 and 18-20, not associated with temp changes, no associated climactic events
+ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-03-18', tz='UTC') &
+                                            datetime < as.POSIXct('2019-03-19', tz='UTC'))),
        aes(x=datetime, y=value)) +
   facet_grid(variable ~. , scales = 'free_y') +
   geom_point() +
@@ -358,10 +296,8 @@ ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-03-15', t
   scale_x_datetime(date_minor_breaks = '1 hour') +
   final_theme
 
-
-#mar 15
-ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-03-16', tz='UTC') &
-                                            datetime < as.POSIXct('2019-03-17', tz='UTC'))),
+ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-03-20', tz='UTC') &
+                                            datetime < as.POSIXct('2019-03-21', tz='UTC'))),
        aes(x=datetime, y=value)) +
   facet_grid(variable ~. , scales = 'free_y') +
   geom_point() +
@@ -370,26 +306,25 @@ ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-03-16', t
   final_theme
 
 hobo_w18_L1 <- hobo_w18_L1 %>% 
-  mutate(do_flag = case_when(datetime >= as.POSIXct('2019-03-15 16:00', tz='UTC') &
-                                datetime < as.POSIXct('2019-03-16 12:15', tz='UTC')~ 'e',
+  mutate(flag_do = case_when(datetime > as.POSIXct('2019-03-18 07:00', tz='UTC') &
+                               datetime < as.POSIXct('2019-03-20 10:00', tz='UTC')~ 's',
                              TRUE ~ NA_character_))
 
 
 hobo_do_w18 <- hobo_w18_L1 %>% 
-  select(datetime, TempC_1m, do_ppm, do_flag)
+  select(datetime, TempC_1m, do_ppm, flag_do)
 
 hobo_do_w18_vert <- hobo_do_w18 %>% 
-  gather(variable, value, - datetime, -do_flag)
+  gather(variable, value, - datetime, -flag_do)
 
 ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-03-01', tz='UTC') &
                                             datetime < as.POSIXct('2019-04-01', tz='UTC'))),
-       aes(x=datetime, y=value, color = do_flag)) +
+       aes(x=datetime, y=value, color = flag_do)) +
   facet_grid(variable ~. , scales = 'free_y') +
   geom_point() +
   labs(title='hobo do/temp 2019', x='date', y='temp (deg C)') +
   scale_x_datetime(date_minor_breaks = '1 day') +
   final_theme
-
 
 ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-04-01', tz='UTC') &
                                             datetime < as.POSIXct('2019-05-01', tz='UTC'))),
@@ -421,9 +356,9 @@ ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-05-19', t
 
 #plot all 
 hobo_w18_L1 %>% 
-  gather(variable, value, -datetime, -do_flag) %>% 
+  gather(variable, value, -datetime, -flag_do) %>% 
   ggplot(.,
-       aes(x=datetime, y=value, color = do_flag)) +
+       aes(x=datetime, y=value, color = flag_do)) +
   facet_grid(variable ~. , scales = 'free_y') +
   geom_point() +
   labs(title='hobo do/temp 2018-2019', x='date') +
@@ -438,7 +373,7 @@ hobo_w18_L1 <- hobo_w18_L1 %>%
   
 #export L1 tempstring file
 hobo_w18_L1 %>% 
-  select(datetime, TempC_1m, TempC_2m, TempC_3m, TempC_4m, TempC_5m, TempC_6m, TempC_7m, TempC_8m, TempC_9m, TempC_10m, do_ppm, do_flag) %>% 
+  select(datetime, TempC_1m, TempC_2m, TempC_3m, TempC_4m, TempC_5m, TempC_6m, TempC_7m, TempC_8m, TempC_9m, TempC_10m, do_ppm, flag_do) %>% 
   rename(waterTemperature_DO_degC_1m = 'TempC_1m',
          waterTemperature_degC_2m = 'TempC_2m',
          waterTemperature_degC_3m = 'TempC_3m',
@@ -451,7 +386,7 @@ hobo_w18_L1 %>%
          waterTemperature_degC_10m = 'TempC_10m',
          oxygenDissolved_mgl_1m = do_ppm) %>%
   mutate(datetime = as.character(datetime)) %>% 
-  write_csv(., file.path(dump_dir, paste0('2018-2019_hobotempstringdo_L1_v', format(Sys.Date(), '%Y'), '.csv')))
+  write_csv(., file.path(dump_dir, paste0('2018-2019_wintertempstringdo_L1_v', format(Sys.Date(), '%Y'), '.csv')))
 
 
 
