@@ -308,7 +308,7 @@ ggplot(subset(hobo_do_w18_vert, subset = (datetime >= as.POSIXct('2019-03-20', t
 hobo_w18_L1 <- hobo_w18_L1 %>% 
   mutate(flag_do = case_when(datetime > as.POSIXct('2019-03-18 07:00', tz='UTC') &
                                datetime < as.POSIXct('2019-03-20 10:00', tz='UTC')~ 's',
-                             TRUE ~ NA_character_))
+                             TRUE ~ ''))
 
 
 hobo_do_w18 <- hobo_w18_L1 %>% 
