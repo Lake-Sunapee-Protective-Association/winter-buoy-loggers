@@ -726,7 +726,7 @@ make_eml(
                  '2018-2019_wintertempstringdo_L1_v2022.csv', 
                  '2019-2020_wintertempstringdo_L1_v2022.csv', 
                  '2020-2021_wintertempstring_L1_v2022.csv', 
-                 '2021-2022_wintertempstring_L1_v2022.csv')
+                 '2021-2022_wintertempstring_L1_v2022.csv'),
   data.table.name = c('2014-2015 winter tempstring L1 v2022',
                       '2015-2016 winter tempstring L1 v2022',
                       '2016-2017 winter tempstring L1 v2022',
