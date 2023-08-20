@@ -1,10 +1,10 @@
 # winter-buoy-loggers
 
-This repo of code is used to collate and QAQC the Lake Sunapee winter temperature and dissolved oxygen HOBO dataloggers.
+This repo of code is used to collate and QAQC the Lake Sunapee winter temperature (deployed winter 2014-2015 to 2022-2023, ongoing) and dissolved oxygen HOBO dataloggers (deployed winter 2017-2018 through 2019-2020.
 
 All data are processed/cleaned approximately 1x per year.
 
-All data created with these scritps are archived at EDI (https://portal.edirepository.org/nis/mapbrowse?packageid=edi.500.3). Please review the metadata at EDI for data caveats, notes, and code definitions. 
+All data created with these scritps are archived at EDI (https://portal.edirepository.org/nis/mapbrowse?packageid=edi.500.4). Please review the metadata at EDI for data caveats, notes, and code definitions. 
 
 All questions about these scripts and data should be directed to B Steele (steeleb@caryinstitute.org) and Kathie Weathers (weathersk@caryinstitute.org).
 
@@ -24,7 +24,8 @@ The order of scripts, as presented here, is the order in which they are run. Not
  -- change in equipment --
  * Sunapee_hobo_2020-2021.R - processing of the 2020-2021 HOBO U22 tempearture sensors
  * Sunapee_hobo_2021-2022.R - processing of the 2021-2022 HOBO U22 tempearture sensors
+ * Sunapee_hobo_2022-2023.R - processing of the 2022-2023 HOBO U22 tempearture sensors
 
 ## prep for push to EDI
 
- * sunapee_buoywinter_eml_v500.3.R - this script creates the EML metadata for upload to EDI
+ * sunapee_buoywinter_eml_v500.4.R - this script creates the EML metadata for upload to EDI
