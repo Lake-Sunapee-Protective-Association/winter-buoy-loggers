@@ -824,9 +824,9 @@ make_eml(
                              '2020-2021 winter water temperature profile',
                              '2021-2022 winter water temperature profile',
                              '2022-2023 winter water temperature profile'),
-  other.entity = c('winter-buoy-loggers-main.zip'),
+  other.entity = c('winter-buoy-loggers-2023.1.zip'),
   other.entity.name = c('winter logger repository archive'),
-  other.entity.description = c('zip folder of the GitHub repository at time of publication'),
+  other.entity.description = c('zip folder of the GitHub repository at time of publication, SHA 54b8736'),
   user.id = 'steeleb',
   user.domain = 'EDI',
   package.id = 'edi.500.4'
