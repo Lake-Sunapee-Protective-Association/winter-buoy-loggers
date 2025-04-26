@@ -1,6 +1,6 @@
 # winter-buoy-loggers
 
-This repo of code is used to collate and QAQC the Lake Sunapee winter temperature (deployed winter 2014-2015 to 2024-2025, ongoing) and dissolved oxygen HOBO dataloggers (deployed winter 2017-2018 through 2019-2020.
+This repo of code is used to collate and QAQC the Lake Sunapee winter temperature (deployed winter 2014-2015 to 2024-2025, ongoing) and dissolved oxygen HOBO dataloggers (deployed winter 2017-2018 through 2019-2020).
 
 All data are processed/cleaned approximately 1x per year.
 
