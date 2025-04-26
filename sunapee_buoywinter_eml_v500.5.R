@@ -1,9 +1,9 @@
 #*      Cary Institute of Ecosystem Studies (Millbrook, NY)             *
 #*                                                                      *
-#* TITLE:   Sunapee_buoywinter_EML_v500.4.R                             *
+#* TITLE:   Sunapee_buoywinter_EML_v500.5.R                             *
 #* AUTHOR:  Bethel Steele                                               *
-#* SYSTEM:  Lenovo ThinkCentre, Win 10, R 4.2.2, RStudio 2023.06.01     *
-#* DATE:    20August2023                                                *
+#* SYSTEM:  Lenovo ThinkCentre, Win 10, R 4.4.0, RStudio 2024.12.0    *
+#* DATE:    2025-04-26                                                *
 #* PROJECT: sunapee winter buoy                                         *
 #* PURPOSE: create EML for dataset                                      *
 
@@ -42,7 +42,7 @@ template_table_attributes(
                  '2020-2021_wintertempstring_L1_v2022.csv', 
                  '2021-2022_wintertempstring_L1_v2022.csv',
                  '2022-2023_wintertempstring_L1_v2023.csv')
-  )
+)
 
 #edit table attributes
 
@@ -423,7 +423,6 @@ write.table(
   quote = FALSE
 )
 
-
 ## 2022-2023 ##
 attr_winter_2223 <- read.table(
   file = paste0(dir, 'attributes_2022-2023_wintertempstring_L1_v2023.txt'),
@@ -464,6 +463,96 @@ attr_winter_2223
 write.table(
   x = attr_winter_2223,
   file = paste0(dir, 'attributes_2022-2023_wintertempstring_L1_v2023.txt'),
+  sep = '\t',
+  row.names = FALSE,
+  quote = FALSE
+)
+
+## 2023-2024 ##
+attr_winter_2324 <- read.table(
+  file = paste0(dir, 'attributes_2023-2024_wintertempstring_L1_v2025.txt'),
+  header = TRUE,
+  sep = '\t',
+  quote = "\"",
+  as.is = TRUE,
+  comment.char = "",
+  fill = T,
+  colClasses = rep("character", 7)
+)
+attr_winter_2324
+
+attr_winter_2324 <- attr_winter_2324 %>% 
+  mutate(unit = case_when(grepl('degC', attributeName, ignore.case = T) ~ 'celsius',
+                          TRUE ~ ''),
+         attributeDefinition = case_when(attributeName == 'datetime' ~ 'date and time (GMT -5) of record - no daylight savings observed',
+                                         grepl('degC_1m', attributeName, ignore.case = T) ~ 'water temperature at approximately 1 meter depth',
+                                         grepl('degC_2m', attributeName, ignore.case = T) ~ 'water temperature at approximately 2 meter depth',
+                                         grepl('degC_3m', attributeName, ignore.case = T) ~ 'water temperature at approximately 3 meter depth',
+                                         grepl('degC_4m', attributeName, ignore.case = T) ~ 'water temperature at approximately 4 meter depth',
+                                         grepl('degC_5m', attributeName, ignore.case = T) ~ 'water temperature at approximately 5 meter depth',
+                                         grepl('degC_6m', attributeName, ignore.case = T) ~ 'water temperature at approximately 6 meter depth',
+                                         grepl('degC_7m', attributeName, ignore.case = T) ~ 'water temperature at approximately 7 meter depth',
+                                         grepl('degC_8m', attributeName, ignore.case = T) ~ 'water temperature at approximately 8 meter depth',
+                                         grepl('degC_9m', attributeName, ignore.case = T) ~ 'water temperature at approximately 9 meter depth',
+                                         grepl('degC_10m', attributeName, ignore.case = T) ~ 'water temperature at approximately 10 meter depth',
+                                         TRUE ~ attributeDefinition),
+         class = case_when(grepl('degC', attributeName, ignore.case = T) ~ 'numeric',
+                           TRUE ~ class),
+         dateTimeFormatString = case_when(attributeName == 'datetime' ~ 'YYYY-MM-DD hh:mm:ss'),
+         missingValueCode = case_when(grepl('degC', attributeName, ignore.case = T) ~ 'NA',
+                                      TRUE ~ missingValueCode),
+         missingValueCodeExplanation = case_when(grepl('NA', missingValueCode, ignore.case = T) ~ 'not available',
+                                                 TRUE ~ missingValueCodeExplanation))
+attr_winter_2324
+
+write.table(
+  x = attr_winter_2324,
+  file = paste0(dir, 'attributes_2023-2024_wintertempstring_L1_v2025.txt'),
+  sep = '\t',
+  row.names = FALSE,
+  quote = FALSE
+)
+
+## 2024-2025 ##
+attr_winter_2425 <- read.table(
+  file = paste0(dir, 'attributes_2024-2025_wintertempstring_L1_v2025.txt'),
+  header = TRUE,
+  sep = '\t',
+  quote = "\"",
+  as.is = TRUE,
+  comment.char = "",
+  fill = T,
+  colClasses = rep("character", 7)
+)
+attr_winter_2425
+
+attr_winter_2425 <- attr_winter_2425 %>% 
+  mutate(unit = case_when(grepl('degC', attributeName, ignore.case = T) ~ 'celsius',
+                          TRUE ~ ''),
+         attributeDefinition = case_when(attributeName == 'datetime' ~ 'date and time (GMT -5) of record - no daylight savings observed',
+                                         grepl('degC_1m', attributeName, ignore.case = T) ~ 'water temperature at approximately 1 meter depth',
+                                         grepl('degC_2m', attributeName, ignore.case = T) ~ 'water temperature at approximately 2 meter depth',
+                                         grepl('degC_3m', attributeName, ignore.case = T) ~ 'water temperature at approximately 3 meter depth',
+                                         grepl('degC_4m', attributeName, ignore.case = T) ~ 'water temperature at approximately 4 meter depth',
+                                         grepl('degC_5m', attributeName, ignore.case = T) ~ 'water temperature at approximately 5 meter depth',
+                                         grepl('degC_6m', attributeName, ignore.case = T) ~ 'water temperature at approximately 6 meter depth',
+                                         grepl('degC_7m', attributeName, ignore.case = T) ~ 'water temperature at approximately 7 meter depth',
+                                         grepl('degC_8m', attributeName, ignore.case = T) ~ 'water temperature at approximately 8 meter depth',
+                                         grepl('degC_9m', attributeName, ignore.case = T) ~ 'water temperature at approximately 9 meter depth',
+                                         grepl('degC_10m', attributeName, ignore.case = T) ~ 'water temperature at approximately 10 meter depth',
+                                         TRUE ~ attributeDefinition),
+         class = case_when(grepl('degC', attributeName, ignore.case = T) ~ 'numeric',
+                           TRUE ~ class),
+         dateTimeFormatString = case_when(attributeName == 'datetime' ~ 'YYYY-MM-DD hh:mm:ss'),
+         missingValueCode = case_when(grepl('degC', attributeName, ignore.case = T) ~ 'NA',
+                                      TRUE ~ missingValueCode),
+         missingValueCodeExplanation = case_when(grepl('NA', missingValueCode, ignore.case = T) ~ 'not available',
+                                                 TRUE ~ missingValueCodeExplanation))
+attr_winter_2425
+
+write.table(
+  x = attr_winter_2425,
+  file = paste0(dir, 'attributes_2024-2025_wintertempstring_L1_v2025.txt'),
   sep = '\t',
   row.names = FALSE,
   quote = FALSE
@@ -540,7 +629,9 @@ winter of 2017-2018 until the winter of 2021-2022 consisted of 9 HOBO U22
 temperature sensors at approximate depths of 2 meters to 10 meters 
 below the water\'s surface at 1 meter intervals. 10 HOBO U22 sensors
 were deployed at 1m intervals from 1 to 10 meters below the water's 
-surface for the season of 2022-2023. The winters of 
+surface for the seasons beginning 2022-2023. 
+\n
+The winters of 
 2017-2018, 2018-2019, and 2019-2020 included a HOBO U26 dissolved 
 oxygen logger at approximately 1 meter depth. The calibration 
 history of this sensor is unknown. All data are recorded at 
@@ -557,7 +648,7 @@ a nearly continuous year-round data stream for water temperature
 at this location. 
 \n
 Data from the HOBO units were collated and cleaned using R Studio 
-(v. 2020.2.02 and v 2023.06.01), R version 4.1.3 and 4.2.2 by B. Steele 
+(v. 2020.2.02, v 2023.06.01 v 2024.12.0), R version 4.1.3, 4.2.2, and 4.4.0 by B. Steele 
 of K.C. Weathers\' Laboratory, Cary Institute of Ecosystem Studies 
 (a zip folder thatcontains the R code for  QAQC at the time of data 
 publishing, which are stored on GitHub, are 
@@ -616,8 +707,8 @@ keywords <- keywords %>%
                                'LTER Controlled Vocabulary',
                                'LTER Controlled Vocabulary',
                                'LTER Controlled Vocabulary'
-                               )
           )
+  )
 
 knitr::kable(
   row.names = FALSE, 
@@ -649,95 +740,95 @@ personnel <- personnel %>%
   add_row(givenName = c('',
                         'Bethel',
                         'Kathleen', 
-                       'June',
-                       'Elizabeth',
-                       'Kathleen', 
-                       'Kathleen', 
-                       'Geoff',
-                       'John'),
-         middleInitial = c('',
-                           'G',
-                           'C',
-                           '', 
-                           '',
-                           'C',
-                           'C',
-                           '',
-                           ''),
-         surName = c('LSPA',
-                     'Steele', 
-                     'Weathers',
-                     'Fichter',
-                     'Harper', 
-                     'Weathers',
-                     'Weathers',
-                     'Lizotte',
-                     'Merriman'),
-         organizationName = c('Lake Sunapee Protective Association',
-                              'Cary Institute of Ecosystem Studies',
-                              'Cary Institute of Ecosystem Studies',
-                              'Lake Sunapee Protective Association',
-                              'Lake Sunapee Protective Association',
-                              'Cary Institute of Ecosystem Studies',
-                              'Cary Institute of Ecosystem Studies',
-                              'Lake Sunapee Protective Association',
-                              'Lake Sunapee Protective Association'),
-         electronicMailAddress = c('lspa@lakesunapee.org',
-                                   'steeleb@caryinstitute.org',
-                                   'weathersk@caryinstitute.org',
-                                   'junef@lakesunapee.org',
-                                   'elizabeth@lakesunapee.org',
-                                   'weathersk@caryinstitute.org',
-                                   'weathersk@caryinstitute.org',
-                                   '',
-                                   ''),
-         userId = c('',
-                    '0000-0003-4365-4103',
-                    '0000-0002-3575-6508',
-                    '',
-                    '',
-                    '0000-0002-3575-6508',
-                    '0000-0002-3575-6508',
-                    '',
-                    ''),
-         role = c('creator',
-                  'creator',
-                  'creator',
-                  'PI',
-                  'contact',
-                  'PI',
-                  'PI', 
-                  'sensor deployment, download and data collection',
-                  'sensor technical'),
-         projectTitle = c('',
-                          '',
-                          '',
-                          '',
-                          '',
-                          'Collaborative Research: CI-Team Demonstration: Developing a Model for Engagement of Citizen Scientists: Lake Associations',
-                          'Collaborative Research: Building Analytical, Synthesis, and Human Network Skills Needed for Macrosystem Science: a Next Generation Graduate Student Training Model Based on GLEON',
-                          '',
-                          ''),
-         fundingAgency = c('',
+                        'June',
+                        'Elizabeth',
+                        'Kathleen', 
+                        'Kathleen', 
+                        'Geoff',
+                        'John'),
+          middleInitial = c('',
+                            'G',
+                            'C',
+                            '', 
+                            '',
+                            'C',
+                            'C',
+                            '',
+                            ''),
+          surName = c('LSPA',
+                      'Steele', 
+                      'Weathers',
+                      'Fichter',
+                      'Harper', 
+                      'Weathers',
+                      'Weathers',
+                      'Lizotte',
+                      'Merriman'),
+          organizationName = c('Lake Sunapee Protective Association',
+                               'Cary Institute of Ecosystem Studies',
+                               'Cary Institute of Ecosystem Studies',
+                               'Lake Sunapee Protective Association',
+                               'Lake Sunapee Protective Association',
+                               'Cary Institute of Ecosystem Studies',
+                               'Cary Institute of Ecosystem Studies',
+                               'Lake Sunapee Protective Association',
+                               'Lake Sunapee Protective Association'),
+          electronicMailAddress = c('lspa@lakesunapee.org',
+                                    'steeleb@caryinstitute.org',
+                                    'weathersk@caryinstitute.org',
+                                    'junef@lakesunapee.org',
+                                    'elizabeth@lakesunapee.org',
+                                    'weathersk@caryinstitute.org',
+                                    'weathersk@caryinstitute.org',
+                                    '',
+                                    ''),
+          userId = c('',
+                     '0000-0003-4365-4103',
+                     '0000-0002-3575-6508',
+                     '',
+                     '',
+                     '0000-0002-3575-6508',
+                     '0000-0002-3575-6508',
+                     '',
+                     ''),
+          role = c('creator',
+                   'creator',
+                   'creator',
+                   'PI',
+                   'contact',
+                   'PI',
+                   'PI', 
+                   'sensor deployment, download and data collection',
+                   'sensor technical'),
+          projectTitle = c('',
                            '',
                            '',
-                           'Frey Foundation',
                            '',
-                           'National Science Foundation',
-                           'National Science Foundation',
+                           '',
+                           'Collaborative Research: CI-Team Demonstration: Developing a Model for Engagement of Citizen Scientists: Lake Associations',
+                           'Collaborative Research: Building Analytical, Synthesis, and Human Network Skills Needed for Macrosystem Science: a Next Generation Graduate Student Training Model Based on GLEON',
                            '',
                            ''),
-         fundingNumber = c('',
-                           '',
-                           '',
-                           '',
-                           '',
-                           '0936174',
-                           '1137327',
-                           '',
-                           '')
+          fundingAgency = c('',
+                            '',
+                            '',
+                            'Frey Foundation',
+                            '',
+                            'National Science Foundation',
+                            'National Science Foundation',
+                            '',
+                            ''),
+          fundingNumber = c('',
+                            '',
+                            '',
+                            '',
+                            '',
+                            '0936174',
+                            '1137327',
+                            '',
+                            '')
   )
-   
+
 knitr::kable(
   row.names = FALSE, 
   x = personnel, caption = 'personnel.txt') %>%
@@ -773,7 +864,7 @@ additional_info <-  'Associated datasets: high-frequency meteorological
 data from the Lake Sunapee instrumented buoy (edi.234) and underwater 
 temperature and dissolved oxygen data from the Lake Sunapee instrumented 
 buoy (edi.499).'
-  
+
 knitr::kable(
   row.names = FALSE, 
   col.names = '', 
@@ -795,7 +886,7 @@ make_eml(
   predominantly muck substrate. It has a surface area of 1667 hectares, 53 kilometers of developed shoreline and a maximum depth of 33.7 meters. The location 
   of the winter under-ice temperature and do string is 43.3913, -72.0576. Verbal description of winter under-ice location: SSE of Loon Island, water depth 
   10.5-12 meters, water fluctuations seasonally 0.75 to 1 meter.',
-  temporal.coverage = c('2014-10-14', '2023-05-15'),
+  temporal.coverage = c('2014-10-14', '2025-04-25'),
   maintenance.description = 'ongoing',
   data.table = c('2014-2015_wintertempstring_L1_v2022.csv', 
                  '2015-2016_wintertempstring_L1_v2022.csv', 
@@ -805,7 +896,9 @@ make_eml(
                  '2019-2020_wintertempstringdo_L1_v2022.csv', 
                  '2020-2021_wintertempstring_L1_v2022.csv', 
                  '2021-2022_wintertempstring_L1_v2022.csv', 
-                 '2022-2023_wintertempstring_L1_v2023.csv'),
+                 '2022-2023_wintertempstring_L1_v2023.csv', 
+                 '2023-2024_wintertempstring_L1_v2025.csv', 
+                 '2024-2025_wintertempstring_L1_v2025.csv'),
   data.table.name = c('2014-2015 winter tempstring L1 v2022',
                       '2015-2016 winter tempstring L1 v2022',
                       '2016-2017 winter tempstring L1 v2022',
@@ -814,7 +907,9 @@ make_eml(
                       '2019-2020 winter tempstring and dissolved oxygen L1 v2022',
                       '2020-2021 winter tempstring L1 v2022',
                       '2021-2022 winter tempstring L1 v2022',
-                      '2022-2023 winter tempstring L1 v2023'),
+                      '2022-2023 winter tempstring L1 v2023',
+                      '2023-2024 winter tempstring L1 v2025',
+                      '2024-2025 winter tempstring L1 v2025'),
   data.table.description = c('2014-2015 winter water temperature profile',
                              '2015-2016 winter water temperature profile',
                              '2016-2017 winter water temperature profile',
@@ -823,11 +918,13 @@ make_eml(
                              '2019-2020 winter water temperature profile and dissolved oxygen at 1 m',
                              '2020-2021 winter water temperature profile',
                              '2021-2022 winter water temperature profile',
-                             '2022-2023 winter water temperature profile'),
-  other.entity = c('winter-buoy-loggers-2023.1.zip'),
+                             '2022-2023 winter water temperature profile',
+                             '2023-2024 winter water temperature profile',
+                             '2024-2025 winter water temperature profile'),
+  other.entity = c('winter-buoy-loggers-2025.zip'),
   other.entity.name = c('winter logger repository archive'),
-  other.entity.description = c('zip folder of the GitHub repository at time of publication, SHA 54b8736'),
+  other.entity.description = c('zip folder of the GitHub repository at time of publication'),
   user.id = 'steeleb',
   user.domain = 'EDI',
-  package.id = 'edi.500.4'
+  package.id = 'edi.500.5'
 )
